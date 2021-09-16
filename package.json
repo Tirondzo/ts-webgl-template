@@ -1,0 +1,28 @@
+{
+  "name": "ts-webgl-template",
+  "version": "1.0.0",
+  "description": "Template for TypeScript & WebGL development.",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Tirondzo/ts-webgl-template.git"
+  },
+  "keywords": [
+    "ts",
+    "typescript",
+    "webgl",
+    "webpack",
+    "template",
+    "starter",
+    "unlicensed"
+  ],
+  "author": "Tirondzo",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/Tirondzo/ts-webgl-template/issues"
+  },
+  "homepage": "https://github.com/Tirondzo/ts-webgl-template#readme"
+}
