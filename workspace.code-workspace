@@ -1,0 +1,40 @@
+{
+  "folders": [
+    {
+      "path": "."
+    }
+  ],
+  "settings": {
+    "editor.tabSize": 2,
+    "trailing-spaces.deleteModifiedLinesOnly": true,
+    "trailing-spaces.trimOnSave": true,
+    "editor.wordWrapColumn": 120,
+    "editor.rulers": [{"column": 120}]
+  },
+  "launch": {
+    "version": "0.2.0",
+    "configurations": [
+      {
+        // Start chrome and attach vscode to it.
+        "type": "pwa-chrome",
+        "request": "launch",
+        "name": "Launch chrome",
+        "url": "http://localhost:8080"
+      },
+      {
+        // Run currently opened jest test file in debug mode.
+        "type": "node",
+        "request": "launch",
+        "name": "Jest Current File",
+        "program": "${workspaceFolder}/node_modules/.bin/jest",
+        "args": ["${fileBasenameNoExtension}"],
+        "console": "integratedTerminal",
+        "internalConsoleOptions": "neverOpen",
+        "disableOptimisticBPs": true,
+        "windows": {
+          "program": "${workspaceFolder}/node_modules/jest/bin/jest"
+        }
+      }
+    ]
+  }
+}
