@@ -4,7 +4,14 @@
   "description": "Template for TypeScript & WebGL development.",
   "main": "index.js",
   "scripts": {
-    "test": "jest"
+    "start": "cross-env NODE_ENV=development webpack serve --hot",
+    "build": "cross-env NODE_ENV=production webpack --config ./webpack.config.ts",
+    "lint:format": "prettier --loglevel=warn --check .",
+    "lint:format:fix": "prettier --write .",
+    "lint:code": "eslint --max-warnings=0 .",
+    "lint:code:fix": "npm run lint:code -- --fix",
+    "lint:styles": "stylelint \"styles/**/*.{css,scss,html}\" \"src/**/*.{css,scss,html}\"",
+    "lint:styles:fix": "npm run lint:styles -- --fix"
   },
   "repository": {
     "type": "git",
@@ -24,5 +31,37 @@
   "bugs": {
     "url": "https://github.com/Tirondzo/ts-webgl-template/issues"
   },
-  "homepage": "https://github.com/Tirondzo/ts-webgl-template#readme"
+  "homepage": "https://github.com/Tirondzo/ts-webgl-template#readme",
+  "devDependencies": {
+    "@types/compression-webpack-plugin": "^6.0.6",
+    "@types/copy-webpack-plugin": "^8.0.1",
+    "@types/css-minimizer-webpack-plugin": "^3.0.2",
+    "@types/mini-css-extract-plugin": "^2.3.0",
+    "@types/node": "^16.9.2",
+    "@types/webpack": "^5.28.0",
+    "@types/webpack-dev-server": "^4.1.0",
+    "@typescript-eslint/eslint-plugin": "^4.31.1",
+    "@typescript-eslint/parser": "^4.31.1",
+    "clean-webpack-plugin": "^4.0.0",
+    "compression-webpack-plugin": "^9.0.0",
+    "copy-webpack-plugin": "^9.0.1",
+    "cross-env": "^7.0.3",
+    "css-minimizer-webpack-plugin": "^3.0.2",
+    "eslint": "^7.32.0",
+    "file-loader": "^6.2.0",
+    "gts": "^3.1.0",
+    "html-loader": "^2.1.2",
+    "html-minimizer-webpack-plugin": "^3.2.0",
+    "html-webpack-plugin": "^5.3.2",
+    "mini-css-extract-plugin": "^2.3.0",
+    "terser-webpack-plugin": "^5.2.4",
+    "ts-loader": "^9.2.5",
+    "ts-node": "^10.2.1",
+    "typescript": "^4.4.3",
+    "url-loader": "^4.1.1",
+    "webpack": "^5.53.0",
+    "webpack-cli": "^4.8.0",
+    "webpack-dev-server": "^4.2.1",
+    "webpack-manifest-plugin": "^4.0.2"
+  }
 }
