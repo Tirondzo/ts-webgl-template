@@ -51,11 +51,7 @@ const config: webpack.Configuration | {devServer?: devServer.Configuration} = {
 
   optimization: {
     minimize: isProduction,
-    minimizer: [
-      new HtmlMinimizerPlugin(),
-      new CssMinimizerPlugin(),
-      new TerserPlugin(),
-    ],
+    minimizer: [new HtmlMinimizerPlugin(), new CssMinimizerPlugin(), new TerserPlugin()],
   },
   watchOptions: {
     ignored: /node_modules/,
@@ -84,7 +80,31 @@ const config: webpack.Configuration | {devServer?: devServer.Configuration} = {
       },
       {
         test: /\.s[ac]ss$/i,
-        use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'],
+        use: [
+          isDev ? 'style-loader' : MiniCssExtractPlugin.loader,
+          {
+            loader: 'css-loader',
+            options: {
+              sourceMap: isDev,
+              modules: {
+                auto: true,
+                localIdentName: isDev ? '[name]__[local]_[contenthash:8]' : '[hash:base64]',
+              },
+            },
+          },
+        ],
+      },
+      {
+        test: /\.css$/,
+        use: [
+          isDev ? 'style-loader' : MiniCssExtractPlugin.loader,
+          {
+            loader: 'css-loader',
+            options: {
+              sourceMap: isDev,
+            },
+          },
+        ],
       },
       {
         test: /\.(jpe?g|png|gif|webp)$/,
