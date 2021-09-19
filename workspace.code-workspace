@@ -9,7 +9,13 @@
     "trailing-spaces.deleteModifiedLinesOnly": true,
     "trailing-spaces.trimOnSave": true,
     "editor.wordWrapColumn": 120,
-    "editor.rulers": [{"column": 120}]
+    "editor.rulers": [{"column": 120}],
+    "typescript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBraces": false,
+    "path-autocomplete.extensionOnImport": true,
+    "path-autocomplete.excludedItems": {
+      "**/*.js": {"when": "**"},
+      "**/*.ts": {"when": "**"},
+    }
   },
   "launch": {
     "version": "0.2.0",

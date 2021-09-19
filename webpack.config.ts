@@ -135,7 +135,16 @@ const config: webpack.Configuration | {devServer?: devServer.Configuration} = {
       },
       {
         test: /\.(glsl|vert|frag)$/,
-        use: 'raw-loader',
+        exclude: /node_modules/,
+        use: {
+          loader: 'webpack-glsl-minify',
+          options: {
+            // Don't obfuscate shader code in dev mode
+            disableMangle: !isProduction,
+            preserveAll: !isProduction,
+            esModule: true,
+          },
+        },
       },
       {
         test: /\.wasm$/,
