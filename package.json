@@ -34,6 +34,7 @@
   },
   "homepage": "https://github.com/Tirondzo/ts-webgl-template#readme",
   "devDependencies": {
+    "@tweakpane/core": "^1.0.6",
     "@types/compression-webpack-plugin": "^6.0.6",
     "@types/copy-webpack-plugin": "^8.0.1",
     "@types/css-minimizer-webpack-plugin": "^3.0.2",
@@ -79,6 +80,7 @@
     "webpack-manifest-plugin": "^4.0.2"
   },
   "dependencies": {
+    "tweakpane": "^3.0.5",
     "twgl.js": "^4.19.2"
   }
 }

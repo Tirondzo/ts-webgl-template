@@ -1,12 +1,27 @@
 import * as twgl from 'twgl.js';
 import basicFS from './shaders/basic.frag';
 import basicVS from './shaders/basic.vert';
+import type {Tuple} from './utils/types';
 
 class Renderer {
   private animationHandler = -1;
   private basicProgram: twgl.ProgramInfo;
   private fullscreenBuffer: twgl.BufferInfo;
-  private lastTime = 0;
+  private onUpdateSubscription: VoidFunction | null = null;
+
+  stats = {
+    ft: 0, // time between frame begin and end (frame time)
+    dt: 0, // time between frame begin points (delta time)
+    fps: 0, // Frames Per Second
+    lastTime: 0, // last render timestamp
+  };
+
+  props = {
+    color: [1.0, 1.0, 1.0, 1.0] as Tuple<number, 4>,
+    sinOffset: [2, 4],
+    timeMultiplier: 1.0,
+    time: 1000,
+  };
 
   constructor(private canvas: HTMLCanvasElement, private gl: WebGLRenderingContext) {
     this.render = this.render.bind(this);
@@ -46,9 +61,16 @@ class Renderer {
     cancelAnimationFrame(this.animationHandler);
   }
 
+  onUpdate(cb: VoidFunction) {
+    this.onUpdateSubscription = cb;
+  }
+
   render(time: number): void {
+    const t0 = performance.now();
     const gl = this.gl;
-    const dt = time - this.lastTime;
+    this.stats.dt = time - this.stats.lastTime;
+    this.props.time += this.stats.dt * this.props.timeMultiplier;
+    this.stats.fps = 1000.0 / this.stats.dt; // approximation from delta time, you can count frames in second instead
 
     gl.viewport(0, 0, this.canvas.width, this.canvas.height);
     gl.clearColor(1, 0, 1, 1); // 🟪
@@ -65,14 +87,19 @@ class Renderer {
     twgl.setUniforms(this.basicProgram, {
       [basicVS.uniforms['u_screen_size'].variableName]: screenSize,
       [basicVS.uniforms['u_screen_ratio'].variableName]: screenRatio,
-      [basicFS.uniforms['u_time'].variableName]: [time, dt],
+      [basicFS.uniforms['u_time'].variableName]: [this.props.time, this.stats.dt],
+      [basicFS.uniforms['u_offset'].variableName]: this.props.sinOffset,
+      [basicFS.uniforms['u_color'].variableName]: this.props.color,
     });
 
     twgl.setBuffersAndAttributes(gl, this.basicProgram, this.fullscreenBuffer);
     twgl.drawBufferInfo(gl, this.fullscreenBuffer);
 
-    this.lastTime = time;
+    this.stats.lastTime = time;
     this.animationHandler = requestAnimationFrame(this.render);
+    this.stats.ft = performance.now() - t0;
+
+    if (this.onUpdateSubscription !== null) this.onUpdateSubscription();
   }
 }
 
