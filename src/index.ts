@@ -27,7 +27,7 @@ if (renderer) {
 }
 
 const invalidateCanvasSize = () => {
-  canvas.width = canvas.clientHeight;
+  canvas.height = canvas.clientHeight;
   canvas.width = canvas.clientWidth;
 };
 invalidateCanvasSize();
